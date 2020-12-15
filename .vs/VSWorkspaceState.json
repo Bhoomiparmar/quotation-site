@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\assets",
+    "\\src\\assets\\css",
+    "\\src\\components",
+    "\\src\\components\\Card",
+    "\\src\\components\\Tasks",
+    "\\src\\variables",
+    "\\src\\views"
+  ],
+  "SelectedNode": "\\src\\routes.js",
+  "PreviewInSolutionExplorer": false
+}
