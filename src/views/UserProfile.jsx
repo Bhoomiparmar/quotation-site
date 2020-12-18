@@ -19,28 +19,25 @@ import {updateUserAPI} from "../config";
 
 
 function UserProfile(props) {
-    const [name, setName] = useState('');
-    const [phonenumber,setPhonenumber] = useState('');
-    const [email, setEmail] = useState('');
-    const [companyname, setCompanyname] = useState('');
-    const [website, setWebsite] = useState('');
-    const [location,setLocation] = useState('');
-    const[aboutcompany,setAboutcompany] = useState('');
+    const{item} = props.location.state;
+    const [name, setName] = useState(item?item.name:'');
+    const [phone,setPhone] = useState(item?item.phone:'');
+    const [email, setEmail] = useState(item?item.email:'');
+   // const [company, setCompany] = useState(item?item.company:'');
+    const [website, setWebsite] = useState(item?item.website:'');
+    const [location,setLocation] = useState(item?item.location:'');
+    const[aboutCompany,setAboutCompany] = useState(item?item.aboutCompany:'');
 
 
-
-    useEffect(() => {
-          _OnAcceptProfile();
-          _OnRejectProfile();
-    }, []);
 
 
     async function _OnAcceptProfile() {
         try {
-            let data= {name,phonenumber,email,companyname,website,aboutcompany,location,};
-            let res = await axios.patch(updateUserAPI, data, );
+            let data= {isVerified:true};
+            let res = await axios.patch(updateUserAPI + item._id, data, );
             console.log('res:',res);
-            props.history.push('/')
+            props.history.push('/admin/unregistered')
+           // window.location.href = '/unregistered';
         } catch (e) {
             console.log('Error', e);
         }
@@ -48,10 +45,10 @@ function UserProfile(props) {
 
     async function _OnRejectProfile() {
         try {
-            let data= {name,phonenumber,email,companyname,website,aboutcompany,location,};
-            let res = await axios.patch(updateUserAPI, data, );
+            let data= {isVerified:false};
+            let res = await axios.patch(updateUserAPI + item._id , data, );
             console.log('res:',res);
-            props.history.push('/')
+            props.history.push('/admin/unregistered')
         } catch (e) {
             console.log('Error', e);
         }
@@ -138,16 +135,16 @@ function UserProfile(props) {
                       ncols={["col-md-6", "col-md-6"]}
                       properties={[
                           {
-                              id:"phone number",
+                              id:"phone",
                               label: "Phone Number",
                               type: "text",
                               bsClass: "form-control",
                               placeholder: "phone number",
-                              value : phonenumber,
+                              value : phone,
                               onChange : (event) =>
                               {
                                   // alert(event.target.value)
-                                  setPhonenumber(event.target.value)
+                                  setPhone(event.target.value)
                               }
                           },
                           {
@@ -195,8 +192,8 @@ function UserProfile(props) {
                             componentClass="textarea"
                             bsClass="form-control"
                             placeholder="Here can be your description"
-                            value={aboutcompany}
-                            onChange={event => setAboutcompany(event.target.value)}
+                            value={aboutCompany}
+                            onChange={event => setAboutCompany(event.target.value)}
                           />
                         </FormGroup>
                       </Col>
@@ -204,12 +201,22 @@ function UserProfile(props) {
                     <Row>
                     <Col>
                     
-                    <Button style={{marginRight: "10px"}} bsStyle="primary" pullRight fill type="submit">
+                    <Button style={{marginRight: "10px"}} bsStyle="primary" pullRight fill type="submit"
+                            onClick={(e)=>{
+                                e.preventDefault()
+                                _OnAcceptProfile()
+                            }}
+                    >
                       Accept Profile
                     </Button> 
                     </Col>
                      <Col>
-                    <Button style={{marginRight: "10px"}} bsStyle="danger" pullRight fill type="submit">
+                    <Button style={{marginRight: "10px"}} bsStyle="danger" pullRight fill type="submit"
+                            onClick={(e)=>{
+                                e.preventDefault()
+                                _OnRejectProfile()
+                            }}
+                    >
                       Reject Profile
                     </Button> 
                     </Col>

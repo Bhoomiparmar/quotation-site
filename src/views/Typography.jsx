@@ -36,8 +36,7 @@ function Typography(props) {
 
 async function _getAllLeads() {
         try {
-            let query = `?isleads=true`;
-            let res = await axios.get(getAllLeadAPI + query,);
+            let res = await axios.get(getAllLeadAPI,);
             let leads = res.data;
             console.log('res:', res);
             setLeads(leads);
@@ -55,13 +54,6 @@ async function _getAllLeads() {
   return (
     <div className="content">
       <Grid fluid>
-        <Tabs
-          id="controlled-tab-example"
-          activeKey={leads}
-          onSelect={(k) => setLeads(k)}
-          style={{}}
-        >
-          <Tab eventKey="All Leads" title="All Leads">
               <Row>
                   <Col md={12}>
                       <Table striped hover>
@@ -88,9 +80,7 @@ async function _getAllLeads() {
                       </Table>
                   </Col>
               </Row>
-          </Tab>
 
-        </Tabs>
       </Grid>
     </div>
   );

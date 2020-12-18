@@ -7,17 +7,51 @@
 
 */
 import React, { useEffect , useState } from "react";
-import { Grid, Row, Col, Alert } from "react-bootstrap";
+import {Grid, Row, Col, Alert, Table} from "react-bootstrap";
 import axios from 'axios';
-
 import Button from "components/CustomButton/CustomButton.jsx";
+import {baseUrl, getAllUsersAPI} from "../config";
+import {FaEdit, FaEye, FaTimes} from "react-icons/fa";
+import {Link} from "react-router-dom";
+import {HiOutlineMail} from "react-icons/hi";
+import _ from 'underscore';
+
+const columns = [
+  {id: 'name', label: 'Name'},
+
+];
 
 function Notifications(props) {
+
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [subject , setSubject] = useState('');
+    const [users, setUsers] = useState([]);
+    const [selectedUsers, setSelectedUsers] = useState([]);
 
-     async function _onSendEmail() {
+
+  useEffect(() => {
+
+    _getAllUsers();
+  }, []);
+
+
+
+
+  async function _getAllUsers() {
+    try {
+      let query = `?isVerified=true`;
+      let res = await axios.get(getAllUsersAPI + query,);
+      let users = res.data;
+      console.log('res:', res);
+      setUsers(users);
+    } catch (e) {
+      setUsers([]);
+    }
+  }
+
+
+  async function _onSendEmail() {
         try {
           let data = {subject, body};
           let res = await axios.post( data,);
@@ -30,15 +64,17 @@ function Notifications(props) {
 
      async function _onSendPushNotification() {
         try {
-            let data = {title, body};
-            let res = await axios.post( data,);
+          let url=baseUrl+'/notifications/send-notification'
+          console.log('url:',url);
+            let data = {users:selectedUsers,title, body};
+            let res = await axios.post(url, data,);
             console.log('res:', res);
+
         } catch (e) {
 
         } finally {
         }
     }
-
 
     return (
       <div className="content">
@@ -163,11 +199,52 @@ function Notifications(props) {
                     </Button>
                   </Col>
                   <Col md={2}>
+
+                    <label>
+                      Title:
+                      <input type="text" name="title" value={title} onChange={e=>setTitle(e.target.value)}/>
+                    </label>
+                    <label>
+                      Body:
+                      <input type="text" name="body" value={body} onChange={e=>setBody(e.target.value)}/>
+                    </label>
+
+                    {users.map((item,index)=>{
+                      return(
+                      <div style={{
+                        flex: 1,
+                        marginTop: 20,
+                        width: 400,
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                      }}>
+                        <div>
+                          {`${item.name}`}
+                        </div>
+
+
+                        <input key={index} type="checkbox"
+                               defaultChecked={item}
+                               onChange={(e) => {
+                                 let copy = _.clone(selectedUsers);
+                                 if (e.target.checked) {
+                                   copy.push(item.name);
+                                 } else {
+                                   let index = _.indexOf(copy, item.name);
+                                   copy.splice(index, 1);
+                                 }
+                                 setSelectedUsers(copy);
+                               }}/>
+
+                      </div>
+                      )})}
+
                     <Button
                       bsStyle="default"
                       block
-                      onClick={() => this.props.handleClick("bc")}
-                    >
+                      onClick={()=> _onSendPushNotification() }>
                       Send Push Notification
                     </Button>
                   </Col>
@@ -181,3 +258,7 @@ function Notifications(props) {
 }
 
 export default Notifications;
+
+
+
+

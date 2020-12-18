@@ -66,18 +66,16 @@ async function _getAllVerifiedUsers() {
                   <td>
                     <FaTimes
                         style={{ marginRight: "10px", color: "#EE2D20" }}
+                        //onClick={()=>{this.handleClick.delete(item)}}
+                        //onDelete={()=>props.history.push({item})}
                     />
                     <FaEdit
                         style={{ marginRight: "10px", color: "#20C2EB" }}
+                        onClick={()=>props.history.push('/UserProf',{item})}
                     />
                     <FaEye style={{ marginRight: "10px" }} />
                   </td>
                   <td>
-                    <Link to="/UserProf">
-                      <Button style={{ border: "none" }}>
-                        <HiOutlineMail />
-                      </Button>
-                    </Link>
                   </td>
                 </tr>})}
 

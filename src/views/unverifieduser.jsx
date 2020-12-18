@@ -70,15 +70,12 @@ function TableList(props) {
                                     />
                                     <FaEdit
                                         style={{ marginRight: "10px", color: "#20C2EB" }}
+                                        onClick={()=>props.history.push('/UserProf',{item})}
                                     />
                                     <FaEye style={{ marginRight: "10px" }} />
                                 </td>
                                 <td>
-                                    <Link to="/UserProf">
-                                        <Button style={{ border: "none" }}>
-                                            <HiOutlineMail />
-                                        </Button>
-                                    </Link>
+
                                 </td>
                             </tr>})}
 
