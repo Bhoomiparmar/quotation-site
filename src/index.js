@@ -28,12 +28,23 @@ import "./assets/css/pe-icon-7-stroke.css";
 import UserProfile from "./views/UserProfile";
 
 import AdminLayout from "layouts/Admin.jsx";
+import AddProduct from "views/AddProduct";
+import AddMaterial from "views/AddMaterial";
+import AddMappingMaterial from "views/AddMappingMaterial";
+import AddGrades from "views/AddGrades";
+import AddSubProduct from "views/AddSubProduct";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/UserProf" component={UserProfile} />
+      {/* <Route path="/add-product" component={AddProduct} /> */}
+      {/* <Route path="/add-material" component={AddMaterial} /> */}
+      {/* <Route path="/add-mapping-material" component={AddMappingMaterial} /> */}
+      {/* <Route path="/add-grades" component={AddGrades} />
+      <Route path="/add-sub-product" component={AddSubProduct} /> */}
+
       <Redirect from="/" to="/admin/dashboard" />
     </Switch>
   </BrowserRouter>,

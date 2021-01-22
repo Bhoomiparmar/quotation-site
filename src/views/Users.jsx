@@ -11,21 +11,21 @@ import { FaTimes, FaEdit, FaEye } from "react-icons/fa";
 // ];
 
 function TableList(props) {
-  const [unverifiedusers, setUnVerifiedUsers] = useState([]);
+  const [verifiedusers, setVerifiedUsers] = useState([]);
 
   useEffect(() => {
-    _getAllUnVerifiedUsers();
+    _getAllVerifiedUsers();
   }, []);
 
-  async function _getAllUnVerifiedUsers() {
+  async function _getAllVerifiedUsers() {
     try {
-      let query = `?isVerified=false`;
+      let query = `?isVerified=true`;
       let res = await axios.get(getAllUsersAPI + query);
-      let unverifiedusers = res.data;
+      let verifiedusers = res.data;
       console.log("res:", res);
-      setUnVerifiedUsers(unverifiedusers);
+      setVerifiedUsers(verifiedusers);
     } catch (e) {
-      setUnVerifiedUsers([]);
+      setVerifiedUsers([]);
     }
   }
 
@@ -44,7 +44,7 @@ function TableList(props) {
                 </tr>
               </thead>
               <tbody>
-                {unverifiedusers.map((item, index) => {
+                {verifiedusers.map((item, index) => {
                   return (
                     <tr>
                       <td>{index + 1}</td>
@@ -54,6 +54,8 @@ function TableList(props) {
                       <td>
                         <FaTimes
                           style={{ marginRight: "10px", color: "#EE2D20" }}
+                          //onClick={()=>{this.handleClick.delete(item)}}
+                          //onDelete={()=>props.history.push({item})}
                         />
                         <FaEdit
                           style={{ marginRight: "10px", color: "#20C2EB" }}

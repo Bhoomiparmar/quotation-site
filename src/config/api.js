@@ -47,3 +47,34 @@ export const createQuotationAPI = baseUrl + '/quotations';
 export const updateQuotationAPI = baseUrl + '/quotations/{record_id}';
 export const getOneQuotationAPI = baseUrl + '/quotations/{record_id}';
 export const deleteOneQuotationAPI = baseUrl + '/quotations/{record_id}';
+
+
+//Product
+export const AddProductApi = () => `${baseUrl}/products`;
+export const EditProductApi = (id) => `${baseUrl}/products/${id}`;
+export const GetAllProductsApi = () => `${baseUrl}/products`;
+export const DeleteProductApi = (id) => `${baseUrl}/products/${id}`;
+
+//Sub Product
+export const AddSubProductApi = () => `${baseUrl}/subProducts`;
+export const EditSubProductApi = (id) => `${baseUrl}/subProducts/${id}`;
+export const DeleteSubProductApi = (id) => `${baseUrl}/subProducts/${id}`;
+export const GetAllSubProductsApi = () => `${baseUrl}/subProducts`;
+
+//Material
+export const AddMaterialApi = () => `${baseUrl}/materials`;
+export const EditMaterialApi = (id) => `${baseUrl}/materials/${id}`;
+export const GetAllMaterialsApi = () => `${baseUrl}/materials`;
+export const DeleteMaterialApi = (id) => `${baseUrl}/materials/${id}`;
+
+//Map Material
+export const AddMapMaterialApi = () => `${baseUrl}/mapMaterials`;
+export const EditMapMaterialApi = (id) => `${baseUrl}/mapMaterials/${id}`;
+export const DeleteMapMaterialApi = (id) => `${baseUrl}/mapMaterials/${id}`;
+export const GetAllMapMaterialsApi = () => `${baseUrl}/mapMaterials`;
+
+//Grade
+export const AddGradeApi = () => `${baseUrl}/grades`;
+export const EditGradeApi = (id) => `${baseUrl}/grades/${id}`;
+export const DeleteGradeApi = (id) => `${baseUrl}/grades/${id}`;
+export const GetAllGradesApi = () => `${baseUrl}/grades`;

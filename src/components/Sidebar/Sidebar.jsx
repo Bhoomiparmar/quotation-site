@@ -17,9 +17,10 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth
+      width: window.innerWidth,
     };
   }
+
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
@@ -30,21 +31,16 @@ class Sidebar extends Component {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
   }
+
   render() {
     const sidebarBackground = {
-      backgroundImage: "url(" + this.props.image + ")"
+      backgroundImage: "url(" + this.props.image + ")",
     };
     return (
-      <div
-        id="sidebar"
-        className="sidebar"
-        data-color={this.props.color}
-      >
-          {this.props.hasImage ? (
-            <div className="sidebar-background" style={sidebarBackground} />
-          ) : (
-            null
-          )}
+      <div id="sidebar" className="sidebar" data-color={this.props.color}>
+        {this.props.hasImage ? (
+          <div className="sidebar-background" style={sidebarBackground} />
+        ) : null}
         <div className="logo">
           <a
             href="https://www.pipingmart.com?ref=lbd-sidebar"
@@ -87,6 +83,47 @@ class Sidebar extends Component {
                 );
               return null;
             })}
+            {/* <Nav>
+              <NavDropdown
+                eventKey={2}
+                title={notification}
+                noCaret
+                id="basic-nav-dropdown"
+              >
+                <Link to="/admin/unregistered">
+                  <MenuItem
+                    eventKey={3.1}
+                    style={{ color: "#fff", backgroundColor: "#34A4F8" }}
+                  >
+                    Product Management
+                  </MenuItem>
+                </Link>
+                <MenuItem
+                  eventKey={3.2}
+                  style={{ color: "#fff", backgroundColor: "#34A4F8" }}
+                >
+                  Material Management
+                </MenuItem>
+                <MenuItem
+                  eventKey={3.3}
+                  style={{ color: "#fff", backgroundColor: "#34A4F8" }}
+                >
+                  Mapping Material
+                </MenuItem>
+                <MenuItem
+                  eventKey={3.4}
+                  style={{ color: "#fff", backgroundColor: "#34A4F8" }}
+                >
+                  Grades
+                </MenuItem>
+                <MenuItem
+                  eventKey={3.5}
+                  style={{ color: "#fff", backgroundColor: "#34A4F8" }}
+                >
+                  Sub Product
+                </MenuItem>
+              </NavDropdown>
+            </Nav> */}
           </ul>
         </div>
       </div>
